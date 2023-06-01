@@ -3,22 +3,24 @@ const headers = require('./headers');
 const query = require('./query');
 
 const endpoint = 'https://web-eur.cvent.com/hub/graphqlv2'
-const variables = {
-  "criteria": {
-    "pageCriteria": {
-      "limit": 2
-    }
-  }
-};
 
-(async () => {
-  const {data: {data: { searchAttendees: {pagination, data} }}} = await axios.post(endpoint, {
+const getAll = async (limit=25, token=undefined) => {
+  const variables = {
+    criteria: {
+      pageCriteria: {
+        limit,
+        token
+      }
+    }
+  };
+  const {data: {data: { searchAttendees: {pagination, data} }}} = await axios.post(endpoint, JSON.stringify({
     query,
     variables
-  },{
+  }),{
     headers,
   })
   
-  console.log({pagination, data})
+  console.log({data, pagination })
+}
 
-})()
+getAll()
