@@ -18,3 +18,7 @@ node_modules
 
 ## Stack
 !.npmignore
+
+##data
+data.json
+output.xlsx
